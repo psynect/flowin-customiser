@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>T-Shirt Customizer</title>
+  <style>
+    /* style.css */
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .preview {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: 1px solid #ccc;
+    }
+
+    #tshirt-container {
+      max-width: 80%;
+      max-height: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white; /* Ensure the container has a background color */
+      position: relative; /* Ensure the container has a relative position */
+    }
+
+    #tshirt-preview {
+      max-width: 100%;
+      max-height: 100%;
+      background-color: transparent; /* Ensure the image has a transparent background */
+    }
+
+    #decal {
+      position: absolute;
+      pointer-events: none; /* Allow clicks to pass through */
+    }
+
+    .settings {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .color-option,
+    .size-option,
+    .design-option {
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .size-option {
+      border-radius: 15px;
+      width: auto;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="preview">
+      <div id="tshirt-container">
+        <img src="tshirt-blank.png" alt="Blank T-Shirt" id="tshirt-preview">
+        <img src="" alt="Decal" id="decal"> <!-- New decal image -->
+      </div>
+    </div>
+    <div class="settings">
+      <div class="section">
+        <h2>Color</h2>
+        <div class="options" id="color-options">
+          <div class="color-option" style="background-color: rgb(236, 39, 39);" data-color="red"></div>
+          <div class="color-option" style="background-color: rgb(22, 22, 218);" data-color="blue"></div>
+          <div class="color-option" style="background-color: rgb(20, 179, 20);" data-color="green"></div>
+          <div class="color-option" style="background-color: rgb(5, 5, 5);" data-color="black"></div>
+          <div class="color-option" style="background-color: rgb(221, 221, 221); border: 1px solid #ccc;" data-color="white"></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>SIZE</h2>
+        <div class="options" id="size-options">
+          <div class="size-option" data-size="S">S</div>
+          <div class="size-option" data-size="M">M</div>
+          <div class="size-option" data-size="L">L</div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Design</h2>
+        <div class="options" id="design-options">
+          <div class="design-option" data-design="smile-face.png">😊</div>
+          <div class="design-option" data-design="flowin.png">🌸</div>
+          <div class="design-option" data-design="flowin-cloud.png">☁️</div>
+          <div class="design-option" data-design="sad-face.png">😢</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // script.js
+    const tshirtContainer = document.getElementById('tshirt-container');
+    const tshirtPreview = document.getElementById('tshirt-preview');
+    const decal = document.getElementById('decal');
+    const colorOptions = document.getElementById('color-options');
+    const sizeOptions = document.getElementById('size-options');
+    const designOptions = document.getElementById('design-options');
+
+    const decalSettings = {
+      'smile-face.png': { maxWidth: '35%', maxHeight: '35%' },
+      'flowin.png': { maxWidth: '60%', maxHeight: '60%' },
+      'flowin-cloud.png': { maxWidth: '40%', maxHeight: '40%' },
+      'sad-face.png': { maxWidth: '20%', maxHeight: '20%' }
+    };
+
+    colorOptions.addEventListener('click', (event) => {
+      console.log('Color option clicked'); // Debugging statement
+      if (event.target.classList.contains('color-option')) {
+        const color = event.target.dataset.color;
+        console.log('Selected color:', color); // Debugging statement
+        // Change the background color of the t-shirt container
+        tshirtContainer.style.backgroundColor = color;
+        console.log('Background color changed to:', tshirtContainer.style.backgroundColor); // Debugging statement
+      }
+    });
+
+    sizeOptions.addEventListener('click', (event) => {
+      console.log('Size option clicked'); // Debugging statement
+      if (event.target.classList.contains('size-option')) {
+        const size = event.target.dataset.size;
+        console.log('Selected size:', size); // Debugging statement
+        // Change the size of the t-shirt preview and decal
+        switch (size) {
+          case 'S':
+            tshirtPreview.style.width = '80%';
+            tshirtPreview.style.height = '80%';
+            decal.style.maxWidth = '30%';
+            decal.style.maxHeight = '30%';
+            break;
+          case 'M':
+            tshirtPreview.style.width = '90%';
+            tshirtPreview.style.height = '90%';
+            decal.style.maxWidth = '35%';
+            decal.style.maxHeight = '35%';
+            break;
+          case 'L':
+            tshirtPreview.style.width = '100%';
+            tshirtPreview.style.height = '100%';
+            decal.style.maxWidth = '40%';
+            decal.style.maxHeight = '40%';
+            break;
+        }
+        console.log('T-shirt size changed to:', size); // Debugging statement
+      }
+    });
+
+    designOptions.addEventListener('click', (event) => {
+      console.log('Design option clicked'); // Debugging statement
+      if (event.target.classList.contains('design-option')) {
+        const design = event.target.dataset.design;
+        console.log('Selected design:', design); // Debugging statement
+        // Change the decal image
+        decal.src = design;
+        // Apply the decal settings
+        const settings = decalSettings[design];
+        decal.style.maxWidth = settings.maxWidth;
+        decal.style.maxHeight = settings.maxHeight;
+        console.log('Decal image changed to:', decal.src); // Debugging statement
+        console.log('Decal settings applied:', settings); // Debugging statement
+      }
+    });
+  </script>
+</body>
+</html>
